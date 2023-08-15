@@ -1,0 +1,35 @@
+.mainSectionHead {
+	background-color: #eee;
+	padding: 2%;
+	padding-right: 0px;
+}
+.Heading {
+	text-align: center;
+	color: #3e4b52;
+	font-size: 26px;
+	font-weight: bold;
+}
+.boxCol {
+	background-color: #fff;
+	border-radius: 6px;
+	height: auto;
+	margin-top: 7%;
+	padding: 2%;
+}
+.placeAndDate {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 10px;
+	padding: 12px;
+	background: #254990;
+	padding-left: 10px;
+	border-radius: 5px;
+	color: #fff;
+}
+.rightBoxCol {
+	height: 140vh;
+	background-color: #fff;
+	border-radius: 6px;
+	margin-top: 20%;
+	padding: 2%;
+}

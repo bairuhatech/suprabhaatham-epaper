@@ -1,0 +1,17 @@
+.footerMainHead {
+	background-color: #dedcdc;
+	text-align: center;
+	font-family: "Roboto", sans-serif;
+	font-size: 12px;
+	padding: 5px;
+}
+.footerRowHead {
+	/* background-color: red; */
+	display: flex;
+	justify-content: center;
+	margin-top: 5px;
+}
+.footerRow {
+	width: 30%;
+	/* background-color: blue; */
+}
