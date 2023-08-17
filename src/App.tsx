@@ -1,14 +1,17 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import HomeScreen from "./app/homeScreen";
+import HomeScreen from "./app/ePaperScreen";
+import { Route, Routes } from "react-router-dom";
+import CarousalEpaper from "./app/ePaperScreen/component/carousal";
 
 function App() {
-	return (
-		<div className="App">
-			<HomeScreen />
-		</div>
-	);
+  return (
+    <Routes>
+      <Route index element={<HomeScreen />} />
+      <Route path="/" element={<HomeScreen />} />
+      <Route path="/e-paper" element={<CarousalEpaper />} />
+    </Routes>
+  );
 }
 
 export default App;
