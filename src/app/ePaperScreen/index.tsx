@@ -15,10 +15,12 @@ function HomeScreen(props: any) {
     loadData();
   }, []);
   const loadData = async () => {
-    let url = "https://suprabhaatham-dev.herokuapp.com/api/e-papers";
+    let filter = `?sort=createdAt:DESC`;
+    let url = `https://suprabhaatham-dev.herokuapp.com/api/e-papers` + filter;
     axios
       .get(url)
       .then((response) => {
+        console.log("res",response)
         setData(response.data.data);
         setIsLoading(false);
       })
@@ -45,12 +47,12 @@ function HomeScreen(props: any) {
                 {data?.map((item: any) => {
                   return (
                     <>
-                      {item.attributes.epapercollections[0]?.imageUrl ? (
+                      {item.attributes.image ? (
                         <div className="hmeScrn-EpaperCard">
                           <img
                             className="hmscrn-img"
                             onClick={() => handleClick(item)}
-                            src={item.attributes.epapercollections[0]?.imageUrl}
+                            src={item.attributes.image}
                             alt=""
                           />
 

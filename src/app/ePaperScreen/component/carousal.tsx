@@ -8,7 +8,8 @@ import {
 } from "react-icons/md";
 function CarousalEpaper(props: any) {
   const location = useLocation();
-  let data = location?.state?.attributes?.epapercollections;
+  let data = location?.state?.attributes?.epapercollections[0];
+  console.log("=======data=======",data)
   const ref = useRef<any>();
   const scroll = (ratio: any) => {
     ref.current.scrollLeft += ratio;
