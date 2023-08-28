@@ -20,7 +20,7 @@ function HomeScreen(props: any) {
     axios
       .get(url)
       .then((response) => {
-        console.log("res",response)
+        console.log("res", response);
         setData(response.data.data);
         setIsLoading(false);
       })
@@ -52,7 +52,7 @@ function HomeScreen(props: any) {
                           <img
                             className="hmscrn-img"
                             onClick={() => handleClick(item)}
-                            src={item.attributes.image}
+                            src={item?.attributes?.image}
                             alt=""
                           />
 

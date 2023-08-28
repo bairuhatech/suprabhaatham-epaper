@@ -1,8 +1,8 @@
-import React from "react";
-import "../style.scss";
-
+import React, { useEffect, useRef } from "react";
+import "../../../../app/ePaperScreen/style.scss";
+import { useLocation } from "react-router-dom";
 const PrintEpaper = () => {
-  return <div>PrintEpaper</div>;
+  return <></>;
 };
 
 export default PrintEpaper;

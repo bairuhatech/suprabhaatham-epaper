@@ -13,7 +13,6 @@
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     margin: 10px;
     padding: 8px;
-    // background-color: yellow;
 }
 .hmscrn-img{
     width: 100%;
@@ -55,7 +54,6 @@
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         margin: 0px !important;
         padding: 8px;
-        // margin-top: 10px;
     }
   }
 
@@ -76,7 +74,6 @@
     display: flex;
     flex-direction: row;
     white-space: nowrap;
-    // margin-bottom: 10px;
     width: 100%;
     margin: 3%;
     margin-top: -3%;
@@ -97,17 +94,14 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    /* padding: 20px; */
   }
   .webStories-scrollbutton1 {
     height: 45px;
     width: 45px;
     border-radius: 100%;
     position: absolute;
-    /* // position: relative; */
     left: 24px;
     font-size: 30px;
-    /* // background-color: #e7e1e1; */
     z-index: 10;
     background-color: black;
     border: 0px;
@@ -131,17 +125,13 @@
     margin-top: 7px;
   }
   .webStories-image {
-    // width: 500px;
     height: 490px;
     border-radius: 8px;
     cursor: pointer;
     transition: transform 1s;
     object-fit: contain;
   }
-//   .webStories-image:hover {
-//     transform: scale(1.06);
-//     border-radius: 8px;
-//   }
+
   
   .webStories-ImgDiv {
     width: 500px;
@@ -150,7 +140,6 @@
     border-radius: 8px;
     position: relative;
     display: flex;
-    /* overflow: hidden; */
   }
   
   .webStories-description {
@@ -168,16 +157,7 @@
   }
   
   @media only screen and (max-width: 576px) {
-    // .webStories-scrollbutton1 {
-    //   display: none !important;
-    // }
-    // .webStories-scrollbutton2 {
-    //   display: none !important;
-    // }
-  
-    // .webStories-main {
-    //   display: none !important;
-    // }
+
   }
   @media screen and (min-width: "576px") and (max-width: "991px") {
     .webStories-scrollbutton1 {
@@ -187,3 +167,35 @@
       display: none !important;
     }
   }
+
+  //////zoom/////////////////////////////////////////////
+  /* ImageZoom.css */
+* {
+  box-sizing: border-box;
+}
+
+.img-zoom-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.img-zoom-lens {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  width: 200px;
+  height: 100px;
+
+}
+
+.img-zoom-result {
+  border: 1px solid #d4d4d4;
+  width: 40%;
+  height: 100vh;
+  overflow: hidden;
+  object-fit: contain;
+}
+
+/* Add any additional styling here */
