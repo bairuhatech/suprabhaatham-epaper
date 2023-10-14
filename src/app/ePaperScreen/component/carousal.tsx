@@ -9,7 +9,8 @@ import {
 } from "react-icons/md";
 function CarousalEpaper(props: any) {
   const location = useLocation();
-  let data: any = location?.state?.attributes?.epapercollections[0];
+  let data = location?.state?.attributes?.epapercollections;
+  
   const ref = useRef<any>();
   const navigate = useNavigate();
   const scroll = (ratio: any) => {
@@ -40,8 +41,8 @@ function CarousalEpaper(props: any) {
                     <div className="webStories-ImgDiv">
                       <img
                         className="webStories-image"
-                        src={item?.imageUrl}
-                        alt=""
+                        src={item?.url}
+                        alt="#"
                         onClick={() => handleClick(item)}
                       ></img>
                     </div>

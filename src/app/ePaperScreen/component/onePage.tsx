@@ -12,7 +12,7 @@ function OnePage(props: any) {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const [image, setImage] = useState(location?.state?.data?.imageUrl)
+    const [image, setImage] = useState(location?.state?.data?.url)
     const cropperRef = useRef(null);
     const [croppedImage, setCroppedImage] = useState<any>(null);
     const [croppedImageURL, setCroppedImageURL] = useState("");
@@ -27,7 +27,7 @@ function OnePage(props: any) {
     };
 
     const handleClick = (item: any) => {
-        setImage(item.imageUrl)
+        setImage(item.url)
     }
     const openWindow = (item: any) => {
         const newWindow = window.open(
@@ -175,7 +175,7 @@ function OnePage(props: any) {
                             <Col lg={7} key={item.id} style={{ marginTop: "20px", display: "flex", justifyContent: "center", border: "solid 2px #D3D3D3", marginLeft: "10px", borderRadius: "10px", padding: "8px" }}>
                                 <img
                                     style={{ width: "100%" }}
-                                    src={item?.imageUrl}
+                                    src={item?.url}
                                     alt=""
                                     onClick={() => handleClick(item)}
                                 />
