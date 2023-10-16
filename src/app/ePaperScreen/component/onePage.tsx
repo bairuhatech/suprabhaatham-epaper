@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import Header from "../../../component/header";
 import Footer from "../../../component/footer/footer";
 import { Button, Col, Row } from "antd";
-import "cropperjs/dist/cropper.css";
 import { useNavigate } from "react-router-dom";
 import ReactCrop, { Crop,} from "react-image-crop";
 
