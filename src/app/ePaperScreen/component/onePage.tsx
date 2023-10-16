@@ -1,43 +1,123 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import Header from '../../../component/header';
-import Footer from '../../../component/footer/footer';
-import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md';
-import { Button, Col, Row } from 'antd';
-import Cropper from "react-cropper";
+import Header from "../../../component/header";
+import Footer from "../../../component/footer/footer";
+import { Button, Col, Row } from "antd";
 import "cropperjs/dist/cropper.css";
 import { useNavigate } from "react-router-dom";
+import ReactCrop, { Crop,} from "react-image-crop";
+
+import "react-image-crop/dist/ReactCrop.css";
+
 
 function OnePage(props: any) {
-    const location = useLocation();
-    const navigate = useNavigate();
+    const previewCanvasRef = useRef<HTMLCanvasElement>(null)
+    const imgRef = useRef<HTMLImageElement>(null)
+  const location = useLocation();
+  const navigate = useNavigate();
+  const blobUrlRef = useRef('')
+  const [image, setImage] = useState(location?.state?.data?.url);
+  const cropperRef = useRef(null);
+//   const [croppedImage, setCroppedImage] = useState<any>(null);
+//   const [croppedImageURL, setCroppedImageURL] = useState("");
+//   const aspectRatio = 1;
+//   const [canvass, setCanvas] = useState<any>(null);
 
-    const [image, setImage] = useState(location?.state?.data?.url)
-    const cropperRef = useRef(null);
-    const [croppedImage, setCroppedImage] = useState<any>(null);
-    const [croppedImageURL, setCroppedImageURL] = useState("");
-    const aspectRatio = 1;
+  let data = location?.state?.news;
+  const ref = useRef<any>();
+  const scroll = (ratio: number) => {
+    ref.current.scrollTop += ratio;
+  };
 
-    const [canvass, setCanvas] = useState<any>(null);
-
-    let data = location?.state?.news
-    const ref = useRef<any>();
-    const scroll = (ratio: number) => {
-        ref.current.scrollTop += ratio;
+function CropDemo() {
+    const [crop, setCrop] = useState<Crop>();
+    const [croppedImageUrl, setCroppedImageUrl] = useState<string | null>(null);
+  
+    const cropperRef = useRef<HTMLImageElement>(null);
+  
+    const handleCropComplete = (crop: Crop) => {
+      makeClientCrop(crop);
     };
-
-    const handleClick = (item: any) => {
-        setImage(item.url)
-    }
-    const openWindow = (item: any) => {
-        const newWindow = window.open(
-            "",
-            "",
-            "width=1400,height=1400,scrollbars=1"
+  
+    const makeClientCrop = async (crop: Crop) => {
+      if (cropperRef.current && crop.width && crop.height) {
+        const croppedImageUrl = await getCroppedImg(
+          cropperRef.current,
+          crop,
+          'newFile.png'
         );
+        setCroppedImageUrl(croppedImageUrl)
+        openWindow(croppedImageUrl);
+      }
+    };
+    const getCroppedImg = (image: HTMLImageElement, crop: Crop, fileName: string) => {
+      const canvas = document.createElement('canvas');
+      const scaleX = image.naturalWidth / image.width;
+      const scaleY = image.naturalHeight / image.height;
+      canvas.width = crop.width!;
+      canvas.height = crop.height!;
+  
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(
+        image,
+        crop.x! * scaleX,
+        crop.y! * scaleY,
+        crop.width! * scaleX,
+        crop.height! * scaleY,
+        0,
+        0,
+        crop.width!,
+        crop.height!
+      );
+  
+      return new Promise<string>((resolve, reject) => {
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            reject(new Error('Canvas is empty'));
+            return;
+          }
+          const url = URL.createObjectURL(blob);
+          resolve(url);
+        }, 'image/png');
+      });
+    };
+  
+    return (
+      <div>
+        <ReactCrop
+          crop={crop}
+          onChange={(c) => setCrop(c)}
+          onComplete={(c) => handleCropComplete(c)}
+          >
+         <img
+          ref={cropperRef}
+          alt="Crop"
+          src={image}
+          crossOrigin="anonymous"
+        />
+        </ReactCrop>
+        {croppedImageUrl && <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />}
+      </div>
+    );
+  }
 
-        if (newWindow) {
-            newWindow.document.write(`
+
+  
+
+  
+
+  const handleClick = (item: any) => {
+    setImage(item.url);
+  };
+  const openWindow = (item: any) => {
+    const newWindow = window.open(
+      "",
+      "",
+      "width=1400,height=1400,scrollbars=1"
+    );
+
+    if (newWindow) {
+      newWindow.document.write(`
             <!DOCTYPE html>
             <html>
             <head>
@@ -125,67 +205,67 @@ function OnePage(props: any) {
             </body>
             </html>
             `);
-        } else {
-            alert("Pop-up blocked. Please allow pop-ups for this website.");
-        }
-    };
-
-    const handleCrop = () => {
-        const canvas = (cropperRef.current as any)?.cropper.getCroppedCanvas();
-        setCanvas(canvass)
-        if (canvas) {
-            canvas.toBlob((blob: Blob | null) => {
-                if (blob) {
-                    const croppedFile = new File([blob], "cropped.png", {
-                        type: "image/png"
-                    });
-                    setCroppedImage(croppedFile);
-                    const croppedImageURLl = URL.createObjectURL(croppedFile);
-                    setCroppedImageURL(croppedImageURLl);
-                }
-            }, "image/png");
-        }
+    } else {
+      alert("Pop-up blocked. Please allow pop-ups for this website.");
     }
+  };
 
-    const mmm = () => {
-        openWindow(croppedImageURL)
-        console.log(croppedImageURL);
-    }
-
-    return (
-        <>
-            <Header />
-            <div style={{ display: "flex", justifyContent: "center" }}>
-                <Row style={{ width: "80%", justifyContent: "center", padding: "20px", marginTop: "50px", marginBottom: "50px", border: "solid 3px #d3d3d3", borderRadius: "10px" }}>
-                    <Col lg={20}>
-                        <div style={{ display: "flex", justifyContent: "end", marginBottom: "20px"}}>
-                        <Button onClick={mmm} type="primary">Prosses</Button>
-                        </div>
-                        <Cropper
-                            src={image}
-                            ref={cropperRef}
-                            crop={handleCrop}
-                            aspectRatio={aspectRatio}
-                            style={{ height: "100%", width: "100%" }}
-                            // zoomable={false}
-                        />
-                    </Col>
-                    {data?.length && data?.map((item: any) => {
-                        return (
-                            <Col lg={7} key={item.id} style={{ marginTop: "20px", display: "flex", justifyContent: "center", border: "solid 2px #D3D3D3", marginLeft: "10px", borderRadius: "10px", padding: "8px" }}>
-                                <img
-                                    style={{ width: "100%" }}
-                                    src={item?.url}
-                                    alt=""
-                                    onClick={() => handleClick(item)}
-                                />
-                            </Col>
-                        );
-                    })}
-                </Row>
+  return (
+    <>
+      <Header />
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Row
+          style={{
+            width: "80%",
+            justifyContent: "center",
+            padding: "20px",
+            marginTop: "50px",
+            marginBottom: "50px",
+            border: "solid 3px #d3d3d3",
+            borderRadius: "10px",
+          }}
+        >
+          <Col lg={20}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "end",
+                marginBottom: "20px",
+              }}
+            >
+           
             </div>
-            <Footer />
-        </>
-    )
+            <CropDemo />
+          </Col>
+          {data?.length &&
+            data?.map((item: any) => {
+              return (
+                <Col
+                  lg={7}
+                  key={item.id}
+                  style={{
+                    marginTop: "20px",
+                    display: "flex",
+                    justifyContent: "center",
+                    border: "solid 2px #D3D3D3",
+                    marginLeft: "10px",
+                    borderRadius: "10px",
+                    padding: "8px",
+                  }}
+                >
+                  <img
+                    style={{ width: "100%" }}
+                    src={item?.url}
+                    alt=""
+                    onClick={() => handleClick(item)}
+                  />
+                </Col>
+              );
+            })}
+        </Row>
+      </div>
+      <Footer />
+    </>
+  );
 }
-export default OnePage
+export default OnePage;
