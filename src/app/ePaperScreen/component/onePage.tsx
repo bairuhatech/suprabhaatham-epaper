@@ -42,7 +42,7 @@ function CropDemo() {
     const makeClientCrop = async (crop: Crop) => {
       if (cropperRef.current && crop.width && crop.height) {
         const croppedImageUrl = await getCroppedImg(
-          cropperRef.current,
+          cropperRef.current!,
           crop,
           'newFile.png'
         );
@@ -70,16 +70,19 @@ function CropDemo() {
         crop.height!
       );
   
-      return new Promise<string>((resolve, reject) => {
-        canvas.toBlob((blob) => {
-          if (!blob) {
-            reject(new Error('Canvas is empty'));
-            return;
-          }
-          const url = URL.createObjectURL(blob);
-          resolve(url);
-        }, 'image/png');
-      });
+    //   return new Promise<string>((resolve, reject) => {
+    //     canvas.toBlob((blob) => {
+    //       if (!blob) {
+    //         reject(new Error('Canvas is empty'));
+    //         return;
+    //       }
+    //       const url = URL.createObjectURL(blob);
+    //       resolve(url);
+    //     }, 'image/png');
+    //   });
+    const dataUrl = canvas.toDataURL('image/jpeg');
+
+    return dataUrl;
     };
   
     return (
@@ -91,9 +94,9 @@ function CropDemo() {
           >
          <img
           ref={cropperRef}
-          src={image}
+          src="https://suprabhaatham-cms.s3.eu-west-2.amazonaws.com/epaper/2023-10-1416%3A10%3A4339212754suprabhaatham-news.png"
           alt="Crop"
-        //   crossOrigin="anonymous"
+          crossOrigin="anonymous"
         />
         </ReactCrop>
       </div>
