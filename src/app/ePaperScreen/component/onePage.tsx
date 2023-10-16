@@ -16,6 +16,7 @@ function OnePage(props: any) {
   const navigate = useNavigate();
   const blobUrlRef = useRef('')
   const [image, setImage] = useState(location?.state?.data?.url);
+  console.log("===========image==============",image)
   const cropperRef = useRef(null);
 //   const [croppedImage, setCroppedImage] = useState<any>(null);
 //   const [croppedImageURL, setCroppedImageURL] = useState("");
@@ -95,7 +96,6 @@ function CropDemo() {
           crossOrigin="anonymous"
         />
         </ReactCrop>
-        {croppedImageUrl && <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImageUrl} />}
       </div>
     );
   }
