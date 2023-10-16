@@ -92,7 +92,7 @@ function CropDemo() {
          <img
           ref={cropperRef}
           alt="Crop"
-          src={image}
+          src={location?.state?.data?.url}
           crossOrigin="anonymous"
         />
         </ReactCrop>
