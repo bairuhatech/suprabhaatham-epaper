@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "src/webviewer-lib/MyPDFViewer.tsx"  ]
 }

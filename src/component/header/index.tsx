@@ -28,14 +28,14 @@ function Header() {
           <Col md={8} xs={4}>
             <Row>
               <Col md={12}>
-                <div className="header-MenuIcon">
+                {/* <div className="header-MenuIcon">
                   <FiMenu
                     className="fiMenuIcon"
                     color="#0055A6"
                     cursor={"pointer"}
                     //   onClick={() => setShow(!show)}
                   />
-                </div>
+                </div> */}
               </Col>
               <Col md={12} className="d-none d-md-block">
                 <div className="header-dateDiv">
@@ -71,9 +71,9 @@ function Header() {
               align={"middle"}
               style={{ height: 100 }}
             >
-              <Col className="d-none d-md-block">
+              {/* <Col className="d-none d-md-block">
                 <img src={Live} alt="" />
-              </Col>
+              </Col> */}
               <Col className="d-none d-md-block">
                 <img src={Facebook} alt="" />
               </Col>
