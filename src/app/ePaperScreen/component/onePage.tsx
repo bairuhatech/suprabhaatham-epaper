@@ -1,69 +1,117 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../../../component/header";
 import Footer from "../../../component/footer/footer";
 import { Button, Col, Row } from "antd";
 import { useNavigate } from "react-router-dom";
-import ReactCrop, { Crop,} from "react-image-crop";
+import ReactCrop, { Crop } from "react-image-crop";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-image-crop/dist/ReactCrop.css";
-import MyPDFViewer from "../../../webviewer-lib/MyPDFViewer"
+import "pdfjs-dist/build/pdf.worker.js";
 
 
 function OnePage(props: any) {
-  pdfjs.GlobalWorkerOptions.workerSrc =  
-  `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
-  const [numPages, setNumPages] = useState(null); 
-  const [pageNumber, setPageNumber] = useState(1); 
-    const previewCanvasRef = useRef<HTMLCanvasElement>(null)
-    const imgRef = useRef<HTMLImageElement>(null)
+  pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+  const [numPages, setNumPages] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+  const previewCanvasRef = useRef<HTMLCanvasElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const blobUrlRef = useRef('')
+  const blobUrlRef = useRef("");
   const [image, setImage] = useState(location?.state?.data);
+  const [imagedata, setImageData] = useState<any>([]);
  
   const cropperRef = useRef(null);
-//   const [croppedImage, setCroppedImage] = useState<any>(null);
-//   const [croppedImageURL, setCroppedImageURL] = useState("");
-//   const aspectRatio = 1;
-//   const [canvass, setCanvas] = useState<any>(null);
 
   let data = location?.state?.news;
   const ref = useRef<any>();
   const scroll = (ratio: number) => {
     ref.current.scrollTop += ratio;
   };
+  const pdfUrl = image
+  useEffect(() => {
+    const PDFJS = require("pdfjs-dist/build/pdf");
+    PDFJS.GlobalWorkerOptions.workerSrc = "pdf.worker.js"; // Adjust the path as needed
 
-function CropDemo() {
+    const loadingTask = PDFJS.getDocument(pdfUrl);
+
+    loadingTask.promise
+      .then((pdf: any) => {
+        const totalPages = pdf.numPages;
+        const pageData: any[] = [];
+
+        const loadPage = async (pageNumber: any) => {
+          const page = await pdf.getPage(pageNumber);
+          const scale = 1.5;
+          const viewport = page.getViewport({ scale });
+
+          const canvas = document.createElement("canvas");
+         
+          const context = canvas.getContext("2d");
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+
+      
+          const renderContext = { canvasContext: context, viewport };
+
+          const renderTask = page.render(renderContext);
+          await renderTask.promise;
+
+          pageData.push(canvas.toDataURL("image/png",1.0));
+
+          if (pageNumber === totalPages) {
+            setImageData(pageData);
+            console.log(pageData.length + " page(s) loaded in data");
+          } else {
+            loadPage(pageNumber + 1);
+          }
+        };
+
+        loadPage(1);
+      })
+      .catch((reason: any) => {
+        console.error(reason);
+      });
+  }, [image]);
+  
+  function CropDemo() {
     const [crop, setCrop] = useState<Crop>();
     const [croppedImageUrl, setCroppedImageUrl] = useState<string | null>(null);
-  
+
     const cropperRef = useRef<HTMLImageElement>(null);
-  
+
     const handleCropComplete = (crop: Crop) => {
-            makeClientCrop(crop);
+     
+      makeClientCrop(crop);
     };
-  
-    const makeClientCrop = async (crop: Crop) => {
+
+    const makeClientCrop = async (crop: Crop) => { 
       if (cropperRef.current && crop.width && crop.height) {
         const croppedImageUrl = await getCroppedImg(
           cropperRef.current,
           crop,
-          'newFile.pdf'
+          "newFile.pdf",
+          1.0
         );
-                setCroppedImageUrl(croppedImageUrl)
-        
+        setCroppedImageUrl(croppedImageUrl);
+
         openWindow(croppedImageUrl);
       }
     };
-    const getCroppedImg = (image: HTMLImageElement, crop: Crop, fileName: string) => {
-      const canvas = document.createElement('canvas');
+    const getCroppedImg = (
+      image: HTMLImageElement,
+      crop: Crop,
+      fileName: string,
+      quality: number
+    ) => {
+      const canvas = document.createElement("canvas");
       const scaleX = image.naturalWidth / image.width;
       const scaleY = image.naturalHeight / image.height;
-      canvas.width = crop.width!;
-      canvas.height = crop.height!;
-  
-      const ctx = canvas.getContext('2d')!;
+      canvas.width = crop.width! * 3;
+      canvas.height = crop.height! * 3;
+
+      const ctx = canvas.getContext("2d")!;
       ctx.drawImage(
         image,
         crop.x! * scaleX,
@@ -72,51 +120,42 @@ function CropDemo() {
         crop.height! * scaleY,
         0,
         0,
-        crop.width!,
-        crop.height!
+        crop.width! * 3,
+        crop.height! * 3
       );
-  
-      return new Promise<string>((resolve, reject) => {
-        canvas.toBlob((blob) => {
-          if (!blob) {
-            reject(new Error('Canvas is empty'));
-            return;
-          }
-          const url = URL.createObjectURL(blob);
-          resolve(url);
-        }, 'image/png');
-      });
+
+      // return new Promise<string>((resolve, reject) => {
+      //   canvas.toBlob((blob) => {
+      //     if (!blob) {
+      //       reject(new Error("Canvas is empty"));
+      //       return;
+      //     }
+      //     const url = URL.createObjectURL(blob);
+      //     resolve(url);
+      //   }, "image/png");
+      // });
+      const dataUrl = canvas.toDataURL("image/png", quality);
+      return dataUrl
     };
-   
+
     return (
-      <div>
-        <ReactCrop
-          crop={crop}
-          onChange={(c) => setCrop(c)}
-          onComplete={(c) => handleCropComplete(c)}
-          >
-          <Document  file={image} 
-                  onLoadSuccess={onDocumentLoadSuccess} 
-                  >
-                  <Page 
-                  pageNumber={pageNumber} 
-                  width={600} 
-                  height={800}
-                  renderAnnotationLayer={false}/>
-                  
-                  </Document>
+      <>
+       <ReactCrop crop={crop} onChange={(c) => setCrop(c)}
+       onComplete={handleCropComplete}
+    
+       >
+          <img 
+          ref={cropperRef}
+          alt="Crop"
+          src={imagedata[0]} />
         </ReactCrop>
-      </div>
+      </>
     );
   }
 
-
-  
-
-  
-
   const handleClick = (item: any) => {
-    setImage(item.url);
+    setImage(item);
+    window.scroll(0,0)
   };
   const openWindow = (item: any) => {
     const newWindow = window.open(
@@ -136,8 +175,8 @@ function CropDemo() {
                   .img-zoom-container {
                     position: relative;
                     display: flex;
-                    width: 100%;
-                    height:100%;
+                    width: 80%;
+                    height:80%;
         
                   }
                   .imgSrc {
@@ -182,7 +221,7 @@ function CropDemo() {
                     border:none;
                     border-radius:6px;
                     padding:10px;
-                                    cursor:pointer;
+                    cursor:pointer;
     
                   }
                 </style>
@@ -218,9 +257,9 @@ function CropDemo() {
       alert("Pop-up blocked. Please allow pop-ups for this website.");
     }
   };
-  function onDocumentLoadSuccess({ numPages } :any) { 
-    setNumPages(numPages); 
-    setPageNumber(1); 
+  function onDocumentLoadSuccess({ numPages }: any) {
+    setNumPages(numPages);
+    setPageNumber(1);
   }
   return (
     <>
@@ -244,11 +283,8 @@ function CropDemo() {
                 justifyContent: "end",
                 marginBottom: "20px",
               }}
-            >
-           
-            </div>
-            {/* <CropDemo /> */}
-            <MyPDFViewer/>
+            ></div>
+            <CropDemo />
           </Col>
           {data?.length &&
             data?.map((item: any) => {
@@ -267,15 +303,15 @@ function CropDemo() {
                   }}
                   onClick={() => handleClick(item)}
                 >
-                   <Document  file={item} 
-                  onLoadSuccess={onDocumentLoadSuccess} 
+                  <Document file={item} onLoadSuccess={onDocumentLoadSuccess}
                   >
-                  <Page 
-                  pageNumber={pageNumber} 
-                  width={300} 
-                  height={500}
-                  renderAnnotationLayer={false}/>
-                  
+                    <Page
+                      pageNumber={pageNumber}
+                      width={300}
+                      height={500}
+                      renderAnnotationLayer={false}
+                      
+                    />
                   </Document>
                 </Col>
               );
