@@ -106,8 +106,12 @@ function OnePage(props: any) {
       const canvas = document.createElement("canvas");
       const scaleX = image.naturalWidth / image.width;
       const scaleY = image.naturalHeight / image.height;
-      canvas.width = crop.width! * 3;
-      canvas.height = crop.height! * 3;
+
+      // Increase the scaling factor for better clarity
+      const scaleFactor = 10; // You can adjust this value based on your requirements
+
+      canvas.width = crop.width! * scaleFactor;
+      canvas.height = crop.height! * scaleFactor;
 
       const ctx = canvas.getContext("2d")!;
       ctx.drawImage(
@@ -118,21 +122,12 @@ function OnePage(props: any) {
         crop.height! * scaleY,
         0,
         0,
-        crop.width! * 3,
-        crop.height! * 3
+        crop.width! * scaleFactor,
+        crop.height! * scaleFactor
       );
 
-      // return new Promise<string>((resolve, reject) => {
-      //   canvas.toBlob((blob) => {
-      //     if (!blob) {
-      //       reject(new Error("Canvas is empty"));
-      //       return;
-      //     }
-      //     const url = URL.createObjectURL(blob);
-      //     resolve(url);
-      //   }, "image/png");
-      // });
-      const dataUrl = canvas.toDataURL("image/png", quality);
+      // Adjust the quality parameter for better clarity
+      const dataUrl = canvas.toDataURL("image/jpeg", quality);
       return dataUrl;
     };
 
