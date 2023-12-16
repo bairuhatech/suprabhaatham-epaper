@@ -10,15 +10,17 @@ import { Skeleton } from "antd";
 function HomeScreen(props: any) {
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
   const [data, setData] = useState([]) as any;
-  const [isLoading, setIsLoading] = useState(true) as any;
+  const [isLoading, setIsLoading] = useState(false) as any;
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     loadData();
   }, []);
   const loadData = async () => {
+    setIsLoading(true);
     let filter = `?sort=createdAt:DESC`;
     let url = `https://ec2.suprabhaathamapi.com/api/e-papers` + filter;
     axios
@@ -42,13 +44,13 @@ function HomeScreen(props: any) {
 
   return (
     <>
+      <Header />
       {isLoading ? (
         <>
           <Skeleton active />
         </>
       ) : (
         <>
-          <Header />
           <div className="homeScrn-main">
             <div className="homeScrn-Container">
               <div className="hmeScrn-EpaperCrdMain">
@@ -63,12 +65,14 @@ function HomeScreen(props: any) {
                           <Document
                             file={item?.attributes?.image}
                             onLoadSuccess={onDocumentLoadSuccess}
+                            loading={<Skeleton active />}
                           >
                             <Page
                               pageNumber={pageNumber}
                               width={300}
                               height={500}
                               renderAnnotationLayer={false}
+                              loading={<Skeleton active />}
                             />
                           </Document>
 

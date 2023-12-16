@@ -2,13 +2,12 @@ import React, { useRef, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../../../component/header";
 import Footer from "../../../component/footer/footer";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, Skeleton } from "antd";
 import { useNavigate } from "react-router-dom";
 import ReactCrop, { Crop } from "react-image-crop";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-image-crop/dist/ReactCrop.css";
 import "pdfjs-dist/build/pdf.worker.js";
-
 
 function OnePage(props: any) {
   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -21,7 +20,7 @@ function OnePage(props: any) {
   const blobUrlRef = useRef("");
   const [image, setImage] = useState(location?.state?.data);
   const [imagedata, setImageData] = useState<any>([]);
- 
+
   const cropperRef = useRef(null);
 
   let data = location?.state?.news;
@@ -29,7 +28,8 @@ function OnePage(props: any) {
   const scroll = (ratio: number) => {
     ref.current.scrollTop += ratio;
   };
-  const pdfUrl = image
+  const pdfUrl = image;
+
   useEffect(() => {
     const PDFJS = require("pdfjs-dist/build/pdf");
     PDFJS.GlobalWorkerOptions.workerSrc = "pdf.worker.js"; // Adjust the path as needed
@@ -47,18 +47,17 @@ function OnePage(props: any) {
           const viewport = page.getViewport({ scale });
 
           const canvas = document.createElement("canvas");
-         
+
           const context = canvas.getContext("2d");
           canvas.height = viewport.height;
           canvas.width = viewport.width;
 
-      
           const renderContext = { canvasContext: context, viewport };
 
           const renderTask = page.render(renderContext);
           await renderTask.promise;
 
-          pageData.push(canvas.toDataURL("image/png",1.0));
+          pageData.push(canvas.toDataURL("image/png", 1.0));
 
           if (pageNumber === totalPages) {
             setImageData(pageData);
@@ -74,7 +73,7 @@ function OnePage(props: any) {
         console.error(reason);
       });
   }, [image]);
-  
+
   function CropDemo() {
     const [crop, setCrop] = useState<Crop>();
     const [croppedImageUrl, setCroppedImageUrl] = useState<string | null>(null);
@@ -82,11 +81,10 @@ function OnePage(props: any) {
     const cropperRef = useRef<HTMLImageElement>(null);
 
     const handleCropComplete = (crop: Crop) => {
-     
       makeClientCrop(crop);
     };
 
-    const makeClientCrop = async (crop: Crop) => { 
+    const makeClientCrop = async (crop: Crop) => {
       if (cropperRef.current && crop.width && crop.height) {
         const croppedImageUrl = await getCroppedImg(
           cropperRef.current,
@@ -135,19 +133,17 @@ function OnePage(props: any) {
       //   }, "image/png");
       // });
       const dataUrl = canvas.toDataURL("image/png", quality);
-      return dataUrl
+      return dataUrl;
     };
 
     return (
       <>
-       <ReactCrop crop={crop} onChange={(c) => setCrop(c)}
-       onComplete={handleCropComplete}
-    
-       >
-          <img 
-          ref={cropperRef}
-          alt="Crop"
-          src={imagedata[0]} />
+        <ReactCrop
+          crop={crop}
+          onChange={(c) => setCrop(c)}
+          onComplete={handleCropComplete}
+        >
+          <img ref={cropperRef} alt="Crop" src={imagedata[0]} />
         </ReactCrop>
       </>
     );
@@ -155,7 +151,7 @@ function OnePage(props: any) {
 
   const handleClick = (item: any) => {
     setImage(item);
-    window.scroll(0,0)
+    window.scroll(0, 0);
   };
   const openWindow = (item: any) => {
     const newWindow = window.open(
@@ -303,14 +299,17 @@ function OnePage(props: any) {
                   }}
                   onClick={() => handleClick(item)}
                 >
-                  <Document file={item} onLoadSuccess={onDocumentLoadSuccess}
+                  <Document
+                    file={item}
+                    onLoadSuccess={onDocumentLoadSuccess}
+                    loading={<Skeleton active />}
                   >
                     <Page
                       pageNumber={pageNumber}
                       width={300}
                       height={500}
                       renderAnnotationLayer={false}
-                      
+                      loading={<Skeleton active />}
                     />
                   </Document>
                 </Col>

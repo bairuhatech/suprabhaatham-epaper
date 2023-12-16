@@ -1,17 +1,36 @@
-.footerMainHead {
-	background-color: #dedcdc;
-	text-align: center;
-	font-family: "Roboto", sans-serif;
-	font-size: 12px;
-	padding: 5px;
+.footerContainer {
+  height: 100%;
+  width: 100%;
+  background-color: #272626;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
 }
-.footerRowHead {
-	/* background-color: red; */
-	display: flex;
-	justify-content: center;
-	margin-top: 5px;
+.drawerEdition {
+  width: 100%;
+  margin-top: 60px;
+  margin-bottom: 35px;
+  color: #d8d8d8;
 }
-.footerRow {
-	width: 30%;
-	/* background-color: blue; */
+.disanceIcon {
+  width: 33px;
+  height: 33px;
+  background-color: black;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3px;
+}
+.no-underline {
+  text-decoration: none;
+}
+.copyright {
+  margin-top: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #c3c3c3;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

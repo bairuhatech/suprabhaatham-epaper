@@ -1,0 +1,335 @@
+.Header-MainBox {
+  height: 120px;
+  width: 100%;
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  background-color: #fff;
+}
+
+.Header-SubBox {
+  width: 100%;
+  height: 85px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Header-Container {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.Header-LogoBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.Header-Logo {
+  width: 100%;
+  height: 43px;
+  cursor: pointer;
+}
+
+.Header-IconBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.Header-timerBox {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.Header-txt1 {
+  font-size: 30px;
+  font-family: "NotoSansMalayalam-Medium";
+  padding-top: 4px;
+}
+
+.Header-txt2 {
+  font-size: 14px;
+  font-family: "NotoSansMalayalam-SemiBold";
+}
+
+.Header-txt3 {
+  font-size: 12px;
+  font-family: "NotoSansMalayalam-SemiBold";
+  color: gray;
+}
+
+.Header-UserPopover {
+  min-width: 200px;
+}
+
+.Header-avatar {
+  height: 50px;
+  width: 50px;
+  background-color: rgb(234, 234, 234);
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "NotoSansMalayalam-Bold";
+  font-size: 20px;
+  color: #0055a6;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 1px solid rgb(219, 219, 219);
+}
+
+.Header-avatarImg {
+  height: 50px;
+  width: 50px;
+  border-radius: 100px;
+}
+
+.Header-txt4 {
+  font-family: "NotoSansMalayalam-SemiBold";
+  color: red;
+}
+
+.Header-Logotxt {
+  margin-top: 5px;
+  color: gray;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+.Header-Icons {
+  cursor: pointer;
+}
+
+.Header-txt5 {
+  font-family: "NotoSansMalayalam-Medium";
+  color: gray;
+  font-size: 11px;
+}
+
+.Header-txt5:hover {
+  color: #0055a6;
+  cursor: pointer;
+}
+
+.Header-space {
+  margin: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .Header-MainBox {
+    height: 65px;
+    border-bottom: 1px solid rgb(222, 222, 222);
+  }
+
+  .Header-SubBox {
+    height: 65px;
+  }
+
+  .Header-Container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .Header-Logo {
+    height: 31px;
+  }
+
+  .Header-Icons2 {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  .Header-Icons {
+    display: none;
+  }
+
+  .Header-Logotxt {
+    display: none;
+  }
+
+  .Header-space {
+    margin: 0px;
+  }
+}
+
+.Header-MainBox {
+  height: 120px;
+  width: 100%;
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  background-color: #fff;
+}
+
+.Header-SubBox {
+  width: 100%;
+  height: 85px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Header-Container {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.Header-LogoBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.Header-Logo {
+  width: 100%;
+  height: 43px;
+}
+
+.Header-timerBox {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.Header-txt1 {
+  font-size: 30px;
+  font-family: "NotoSansMalayalam-Medium";
+  padding-top: 4px;
+}
+
+.Header-txt2 {
+  font-size: 14px;
+  font-family: "NotoSansMalayalam-SemiBold";
+}
+
+.Header-txt3 {
+  font-size: 12px;
+  font-family: "NotoSansMalayalam-SemiBold";
+  color: gray;
+}
+
+.Header-UserPopover {
+  min-width: 200px;
+}
+
+.Header-avatar {
+  height: 50px;
+  width: 50px;
+  background-color: rgb(234, 234, 234);
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "NotoSansMalayalam-Bold";
+  font-size: 20px;
+  color: #0055a6;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 1px solid rgb(219, 219, 219);
+}
+
+.Header-avatarImg {
+  height: 50px;
+  width: 50px;
+  border-radius: 100px;
+}
+
+.Header-txt4 {
+  font-family: "NotoSansMalayalam-SemiBold";
+  color: red;
+  cursor: pointer;
+}
+
+.Header-Logotxt {
+  margin-top: 5px;
+  color: gray;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.Header-txt5 {
+  font-family: "NotoSansMalayalam-Medium";
+  color: gray;
+  font-size: 11px;
+}
+
+.Header-txt5:hover {
+  color: #0055a6;
+  cursor: pointer;
+}
+
+.Header-space {
+  margin: 5px;
+}
+.Login-div {
+  width: 90px;
+  height: 35px;
+  border-radius: 25px;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.SignIn {
+  margin-left: 2px;
+  font-weight: 600;
+  color: grey;
+  font-size: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+  .Header-MainBox {
+    height: 65px;
+    border-bottom: 1px solid rgb(222, 222, 222);
+  }
+
+  .Header-SubBox {
+    height: 65px;
+  }
+
+  .Header-Container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .Header-Logo {
+    height: 31px;
+  }
+
+  .Header-Icons2 {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    cursor: pointer;
+  }
+
+  .Header-Icons {
+    display: none;
+  }
+
+  .Header-Logotxt {
+    display: none;
+  }
+
+  .Header-space {
+    margin: 0px;
+  }
+}
