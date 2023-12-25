@@ -12,14 +12,14 @@ import { useParams } from "react-router-dom";
 function Epaper({ close }: any) {
   const { id }: any = useParams();
   const storedData: any = localStorage.getItem("cropedData");
-  // const predata = JSON.parse(storedData);
-  const predata = `blob:` + API.BASE_URL + `${id}`;
+  const predata = JSON.parse(storedData);
+  // const predata = `blob:` + API.BASE_URL + `${id}`;
 
   const closeNewTab = () => {
     window.close();
   };
 
-  const Url = API.BASE_URL + `Newpage/` + id;
+  const Url = API.BASE_URL + `one-e-paper/` + id;
   const handleUrlCopy = () => {
     navigator.clipboard.writeText(Url).then(() => {
       message.success("link copied");
@@ -89,7 +89,7 @@ function Epaper({ close }: any) {
           />
         </button>
         <button className="optnBtn">
-          <FacebookShareButton url={API.BASE_URL + `Newpage/` + id}>
+          <FacebookShareButton url={API.BASE_URL + `one-e-paper/` + id}>
             <img
               width="34"
               height="34"
@@ -99,7 +99,7 @@ function Epaper({ close }: any) {
           </FacebookShareButton>
         </button>
         <button className="optnBtn">
-          <WhatsappShareButton url={API.BASE_URL + `Newpage/` + id}>
+          <WhatsappShareButton url={API.BASE_URL + `one-e-paper/` + id}>
             <img
               width="34"
               height="34"
@@ -109,7 +109,7 @@ function Epaper({ close }: any) {
           </WhatsappShareButton>
         </button>
         <button className="optnBtn">
-          <TwitterShareButton url={API.BASE_URL + `Newpage/` + id}>
+          <TwitterShareButton url={API.BASE_URL + `one-e-paper/` + id}>
             <img
               width="34"
               height="34"

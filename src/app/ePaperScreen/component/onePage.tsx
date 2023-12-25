@@ -116,15 +116,18 @@ function OnePage(props: any) {
         setCroppedImageUrl(croppedImageUrl);
 
         const imageUrl = URL.createObjectURL(croppedImageUrl);
-        console.log("==========imageUrl==========", imageUrl);
 
-        const uuid = imageUrl.split("/").pop();
-        console.log("==========uuid=========", uuid);
-
-        openNewTab(imageUrl, uuid);
+        openNewTab(imageUrl, id);
       }
     };
-
+    const blobToBase64 = (blob: Blob): Promise<string> => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    };
     const getCroppedImg = (
       image: HTMLImageElement,
       crop: Crop,
