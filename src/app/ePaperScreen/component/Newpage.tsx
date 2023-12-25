@@ -11,10 +11,8 @@ import { useParams } from "react-router-dom";
 
 function Epaper({ close }: any) {
   const { id }: any = useParams();
-  console.log("=======id======", id);
   const storedData: any = localStorage.getItem("cropedData");
   const predata = JSON.parse(storedData);
-  console.log("=========props=========", predata);
 
   const closeNewTab = () => {
     window.close();

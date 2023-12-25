@@ -55,7 +55,6 @@ function HomeScreen(props: any) {
             <div className="homeScrn-Container">
               <div className="hmeScrn-EpaperCrdMain">
                 {data?.map((item: any) => {
-                  console.log("============item============", item);
                   return (
                     <>
                       {item.attributes.image ? (
