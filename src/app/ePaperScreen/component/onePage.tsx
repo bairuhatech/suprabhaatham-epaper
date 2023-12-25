@@ -116,8 +116,12 @@ function OnePage(props: any) {
         setCroppedImageUrl(croppedImageUrl);
 
         const imageUrl = URL.createObjectURL(croppedImageUrl);
+        console.log("==========imageUrl==========", imageUrl);
 
-        openNewTab(imageUrl);
+        const uuid = imageUrl.split("/").pop();
+        console.log("==========uuid=========", uuid);
+
+        openNewTab(imageUrl, uuid);
       }
     };
 
@@ -200,9 +204,8 @@ function OnePage(props: any) {
   const handleClick = (item: any) => {
     setImage(item);
     window.scroll(0, 0);
-    console.log("===========image======", image);
   };
-  const openNewTab = (item: any) => {
+  const openNewTab = (item: any, id: any) => {
     localStorage.setItem("cropedData", JSON.stringify(item));
     const url = `/Newpage/${id}`;
 
