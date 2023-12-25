@@ -205,3 +205,53 @@
 }
 
 /* Add any additional styling here */
+.img-zoom-container {
+  position: relative;
+  display: flex;
+  width: 80%;
+  height: 80%;
+}
+.imgSrc {
+  object-fit: cover;
+  // cursor: zoom-in;
+  width: 100%;
+  height: 100%;
+}
+.imgDiv {
+  padding: 20px;
+  height: 800px;
+}
+.adsArea {
+  width: 30%;
+
+  height: 100%;
+  padding: 20px;
+}
+.adsImg {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.optionBttn {
+  width: 100%;
+  height: 50px;
+  margin-bottom: 20px;
+}
+.optnBtn {
+  width: 16.3%;
+  border: none;
+  border-left: 2px solid red;
+  background-color: #ebebeb;
+  border-radius: 6px;
+  padding: 10px;
+  cursor: pointer;
+  object-fit: cover;
+}
+.optnBtn1 {
+  width: 16.3%;
+  background-color: #ebebeb;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  cursor: pointer;
+}

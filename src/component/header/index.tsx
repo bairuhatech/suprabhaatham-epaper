@@ -103,7 +103,7 @@ import { FiMenu } from "react-icons/fi";
 import { LuUserCircle } from "react-icons/lu";
 import { MdOutlineLiveTv } from "react-icons/md";
 import Twitter from "../../asset/images/iconstwitterxwithblack.svg";
-import Logo from "../../asset/images/suprabhathamlogo.svg";
+import Logo from "../../asset/images/SuprabhathamLogoBlack.svg";
 import "./style.css";
 import Timer from "./time";
 
@@ -156,7 +156,7 @@ const Header = (props: any) => {
             <Col sm={4} xs={8}>
               <div className="Header-LogoBox">
                 <div className="Header-space" />
-                <img src={Logo} style={{ width: "300px" }} />
+                <img src={Logo} style={{ width: "250px" }} />
                 <div className="Header-Logotxt">
                   <span className="Header-txt5">LIVE TV</span> |
                   <span className="Header-txt5"> APP</span>

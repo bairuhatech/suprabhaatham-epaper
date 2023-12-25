@@ -34,8 +34,8 @@ function HomeScreen(props: any) {
         console.log(error);
       });
   };
-  const handleClick = (item: any) => {
-    navigate("/e-paper", { state: item });
+  const handleClick = (item: any, id: any) => {
+    navigate(`/one-e-paper/${id}`, { state: { item: item, id: id } });
   };
   function onDocumentLoadSuccess({ numPages }: any) {
     setNumPages(numPages);
@@ -55,12 +55,13 @@ function HomeScreen(props: any) {
             <div className="homeScrn-Container">
               <div className="hmeScrn-EpaperCrdMain">
                 {data?.map((item: any) => {
+                  console.log("============item============", item);
                   return (
                     <>
                       {item.attributes.image ? (
                         <div
                           className="hmeScrn-EpaperCard"
-                          onClick={() => handleClick(item)}
+                          onClick={() => handleClick(item, item.id)}
                         >
                           <Document
                             file={item?.attributes?.image}
