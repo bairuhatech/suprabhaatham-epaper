@@ -212,12 +212,13 @@
   height: 80%;
 }
 .imgSrc {
+  object-fit: contain;
   width: 100%;
   height: 100%;
 }
 .imgDiv {
   padding: 20px;
-  height: 800px;
+  height: 500px;
 }
 .adsArea {
   width: 30%;

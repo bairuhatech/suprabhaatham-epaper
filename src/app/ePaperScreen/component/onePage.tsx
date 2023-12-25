@@ -18,21 +18,21 @@ function OnePage(props: any) {
   const [pageNumber, setPageNumber] = useState(1);
   const [Data, setData] = useState([]);
   const location = useLocation();
-  const navigate = useNavigate();
 
   const [image, setImage] = useState();
+  const [selectedimage, setSelectedImage] = useState();
   const [imagedata, setImageData] = useState<any>([]);
   const [Isloading, setIsLoading] = useState(false);
+  const [isImage, setIsImage] = useState(false);
 
   const { id }: any = useParams();
 
   let newsid = location?.state?.id;
   let data = location?.state?.item?.attributes?.epapercollections;
+
   const pdfUrl = image && image;
 
   useEffect(() => {
-    loadData(id);
-
     if (pdfUrl) {
       const PDFJS = require("pdfjs-dist/build/pdf");
       PDFJS.GlobalWorkerOptions.workerSrc = "pdf.worker.js"; // Adjust the path as needed
@@ -76,6 +76,7 @@ function OnePage(props: any) {
           console.error(reason);
         });
     }
+    loadData(id);
   }, [image]);
 
   const loadData = async (id: any) => {
@@ -85,7 +86,7 @@ function OnePage(props: any) {
       .get(url)
       .then((response) => {
         setData(response?.data?.data?.attributes?.epapercollections);
-        setImage(response?.data?.data?.attributes?.epapercollections[0]);
+        // setImage(response?.data?.data?.attributes?.epapercollections[0]);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -199,6 +200,7 @@ function OnePage(props: any) {
   const handleClick = (item: any) => {
     setImage(item);
     window.scroll(0, 0);
+    console.log("===========image======", image);
   };
   const openNewTab = (item: any) => {
     localStorage.setItem("cropedData", JSON.stringify(item));
@@ -263,6 +265,10 @@ function OnePage(props: any) {
                         borderRadius: "10px",
                         padding: "8px",
                       }}
+                      // onClick={(event) => {
+                      //   event.preventDefault(); // Prevent the default behavior
+                      //   handleClick(item);
+                      // }}
                       onClick={() => handleClick(item)}
                     >
                       <Document
